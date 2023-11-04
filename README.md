@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="500px" src="https://github.com/vra/bing_brush/blob/main/assets/logo.jpeg"/>
+  <img width="200px" src="https://github.com/vra/bing_brush/blob/main/assets/logo.jpeg"/>
   
 ### One-line Image Generating Program Based on the Bing Image Createor (Powered by DALL·E 3)
 
@@ -14,9 +14,9 @@ Credit: The solution of invoking Bing Image Creator API is from <https://github.
 pip install bing_brush
 ```
 
-### Obtain your cookie for Bing.com
+### Obtain your cookie
 
-You need to login to Bing.com first, then follow the steps below to write your cookie to a file (e.g., `cookie.txt`):
+The cookie of Bing.com is needed. You need to login to Bing.com first, then follow the steps below to write your cookie to a file (e.g., `cookie.txt`):
 
 #### Step0:
 Vist <https://www.bing.com/images/create>
