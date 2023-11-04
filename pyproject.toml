@@ -4,11 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bing_brush"
-version = "0.0.1"
+version = "0.1.0"
 authors = [
   { name="Yunfeng Wang", email="wyf.brz@gmail.com" },
 ]
-description = "image generator using the Bing Image Create API"
+description = "One-line Image Generating Program Based on the Bing Image Createor (Powered by DALL·E 3)"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -17,11 +17,8 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+"click",
 "requests",
-#"httpx",
-#"regex",
-#"loguru",
-#"tqdm",
 ]
 
 [project.scripts]
