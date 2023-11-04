@@ -1,0 +1,70 @@
+site_name: BingBrush
+site_description: 
+repo_name: vra/bing_brush
+repo_url: https://github.com/vra/bing_brush
+copyright: Copyright &copy; 2023 Yunfeng Wang
+
+
+nav:
+  - Home: index.md
+
+
+theme:
+  name: material
+  features:
+    - header.autohide
+    - navigation.instant
+    - navigation.tracking
+    - content.code.annotate
+    - toc.integrate
+    - toc.follow
+    - navigation.path
+    - navigation.top
+    - navigation.tabs
+    - navigation.footer
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+  palette: 
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+      primary: teal 
+      accent: cyan 
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal 
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_css:
+  - static/extra.css
+
+plugins:
+- search
+- mkdocstrings:
+    enabled: true
+    default_handler: python
+    handlers:
+      python:
+        options:
+          show_source: true
+ 
