@@ -47,7 +47,7 @@ bing_brush -c cookie.txt -p 'a cute panda eating bamboos' -o output_folder
 ```
 This command will generate 4 pictures located in `output_folder`, example outputs:
 <div align="center">
-  <img width="500px" src="https://github.com/vra/bing_brush/blob/main/assets/demo_outputs.png"/>
+  <img width="800px" src="https://github.com/vra/bing_brush/blob/main/assets/demo_outputs.png"/>
 </div>
 
 ### Python API
