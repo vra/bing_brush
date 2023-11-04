@@ -122,11 +122,14 @@ class BingBrush:
         if response.status_code != 302:
             self.process_error(response)
 
+        print('==> Generating...')
         img_urls = self.request_result_urls(response, url_encoded_prompt)
 
+        print('==> Downloading...')
         os.makedirs(out_folder, exist_ok=True)
         for url in img_urls:
             self.write_image(url, out_folder)
+        print(f'==> Images are saved to {out_folder}')
 
     def write_image(self, url, out_folder):
         response = requests.get(url)
@@ -137,73 +140,6 @@ class BingBrush:
             with open(save_path, "wb") as file:
                 file.write(response.content)
             if self.verbose:
-                print(f"图像已成功下载并保存为：{save_path}")
+                print(f"Save image to: {save_path}")
         else:
-            print("下载失败！")
-
-
-## Error messages
-## Action messages
-# sending_message = "Sending request..."
-# wait_message = "Waiting for results..."
-# download_message = "\nDownloading images..."
-#
-#
-# class ImageGen:
-#    """
-#    Image generation by Microsoft Bing
-#    Parameters:
-#        auth_cookie: str
-#    Optional Parameters:
-#        debug_file: str
-#        quiet: bool
-#        all_cookies: List[Dict]
-#    """
-#
-#    def __init__(
-#        self,
-#        auth_cookie: str,
-#        debug_file: Union[str, None] = None,
-#        quiet: bool = False,
-#        all_cookies: List[Dict] = None,
-#    ) -> None:
-#        self.session: requests.Session = requests.Session()
-#        self.session.headers = HEADERS
-#        self.session.cookies = self.parse_cookie_string(auth_cookie)
-#        self.quiet = quiet
-#        self.debug_file = debug_file
-#
-#    @staticmethod
-#    def parse_cookie_string(cookie_string):
-#        cookie = SimpleCookie()
-#        cookie.load(cookie_string)
-#        cookies_dict = {}
-#        cookiejar = None
-#        for key, morsel in cookie.items():
-#            cookies_dict[key] = morsel.value
-#            cookiejar = cookiejar_from_dict(
-#                cookies_dict, cookiejar=None, overwrite=True
-#            )
-#        return cookiejar
-#
-#    def get_limit_left(self) -> int:
-#        r = self.session.get("https://www.bing.com/create")
-#        if not r.ok:
-#            raise Exception("Can not get limit left from this `cookie` please check")
-#        value = re.search(
-#            r'<div id="token_bal" aria-label="[0-9]+.*">([0-9]+)</div>', r.text
-#        )
-#        if not value:
-#            return 0
-#        if value.group(1).isnumeric():
-#            return int(value.group(1))
-#        else:
-#            print(f"error value: {value.group(1)} just return 0")
-#            return 0
-#
-#    def get_images(self, prompt: str) -> list:
-#        """
-#        Fetches image links from Bing
-#        Parameters:
-#            prompt: str
-#        """
+            print("Download failed!")
