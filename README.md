@@ -45,6 +45,11 @@ Then your cookie for Bing.com has successfully be stored.
 # -c is short for --cookie, -p is short for --prompt
 bing_brush -c cookie.txt -p 'a cute panda eating bamboos' -o output_folder
 ```
+This command will generate 4 pictures located in `output_folder`, example outputs:
+<div align="center">
+  <img width="500px" src="https://github.com/vra/bing_brush/blob/main/assets/demo_outputs.pg"/>
+</div>
+
 ### Python API
 ```python
 brush = BingBrush(cookie='/path/to/cookie.txt')
