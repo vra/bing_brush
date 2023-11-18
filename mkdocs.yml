@@ -57,14 +57,3 @@ markdown_extensions:
 
 extra_css:
   - static/extra.css
-
-plugins:
-- search
-- mkdocstrings:
-    enabled: true
-    default_handler: python
-    handlers:
-      python:
-        options:
-          show_source: true
- 
