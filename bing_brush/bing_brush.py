@@ -80,8 +80,13 @@ class BingBrush:
                 return Exception(error_type)
 
     def request_result_urls(self, response, url_encoded_prompt):
+        if "Location" not in response.headers:
+            return None, None
         redirect_url = response.headers["Location"].replace("&nfy=1", "")
         request_id = redirect_url.split("id=")[-1]
+        return redirect_url, request_id
+
+    def obtaion_image_url(self, redirect_url, request_id, url_encoded_prompt):
         self.session.get(f"https://www.bing.com{redirect_url}")
         polling_url = f"https://www.bing.com/images/create/async/results/{request_id}?q={url_encoded_prompt}"
         # Poll for results
@@ -104,10 +109,10 @@ class BingBrush:
 
         return normal_image_links
 
-    def send_request(self, prompt):
+    def send_request(self, prompt, rt_type=4):
         url_encoded_prompt = requests.utils.quote(prompt)
         payload = f"q={url_encoded_prompt}&qs=ds"
-        url = f"https://www.bing.com/images/create?q={url_encoded_prompt}&rt=4&FORM=GENCRE"
+        url = f"https://www.bing.com/images/create?q={url_encoded_prompt}&rt={rt_type}&FORM=GENCRE"
         response = self.session.post(
             url,
             allow_redirects=False,
@@ -117,19 +122,38 @@ class BingBrush:
         return response, url_encoded_prompt
 
     def process(self, prompt, out_folder):
-        response, url_encoded_prompt = self.send_request(prompt)
+        # rt=4 means the reward pipeline, run faster than the pipeline without reward (rt=3)
+        response, url_encoded_prompt = self.send_request(prompt, rt_type=4)
 
         if response.status_code != 302:
             self.process_error(response)
 
-        print('==> Generating...')
-        img_urls = self.request_result_urls(response, url_encoded_prompt)
+        print("==> Generating...")
+        redirect_url, request_id = self.request_result_urls(
+            response, url_encoded_prompt
+        )
+        if redirect_url is None:
+            # reward is empty, use rt=3 for slow response
+            print(
+                "==> Your boosts have run out, using the slow generating pipeline, please wait..."
+            )
+            response, url_encoded_prompt = self.send_request(prompt, rt_type=3)
+            redirect_url, request_id = self.request_result_urls(
+                response, url_encoded_prompt
+            )
+            if redirect_url is None:
+                print(
+                    "==> Error occurs, please submit an issue at https://github.com/vra/bing_brush, I will fix it as soon as possible."
+                )
+                return -1
 
-        print('==> Downloading...')
+        img_urls = self.obtaion_image_url(redirect_url, request_id, url_encoded_prompt)
+
+        print("==> Downloading...")
         os.makedirs(out_folder, exist_ok=True)
         for url in img_urls:
             self.write_image(url, out_folder)
-        print(f'==> Images are saved to {out_folder}')
+        print(f"==> Images are saved to {out_folder}")
 
     def write_image(self, url, out_folder):
         response = requests.get(url)
