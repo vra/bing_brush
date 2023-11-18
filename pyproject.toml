@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bing_brush"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
   { name="Yunfeng Wang", email="wyf.brz@gmail.com" },
 ]
