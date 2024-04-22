@@ -56,8 +56,8 @@ class BingBrush:
         }
 
     def construct_requests_session(self, cookie):
-        # Generate random IP between range 13.104.0.0/14
-        FORWARDED_IP = f"13.{random.randint(104, 107)}.{random.randint(0, 255)}.{random.randint(0, 255)}"
+        # Generate random US IP 
+        FORWARDED_IP = f"100.{random.randint(43, 63)}.{random.randint(128, 255)}.{random.randint(0, 255)}"
         HEADERS = {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
             "accept-language": "en-US,en;q=0.9",
